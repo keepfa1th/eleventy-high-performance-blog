@@ -615,7 +615,10 @@ thead th {
   border-bottom: 1px solid #f9c412;
 }
 table {
-  display: table;
+  display: block;
+  max-width: -moz-fit-content;
+  max-width: fit-content;
+  white-space: nowrap;
 }
 code,
 pre,
@@ -633,7 +636,7 @@ code,
 kbd {
   border-radius: 0.3em;
   color: #e2777a;
-  padding: 0 0.3em;
+  padding: 0 0.1em;
   font-family: Consolas, Monaco, Andale Mono, Ubuntu Mono, monospace;
   font-size: 90%;
 }
@@ -1162,8 +1165,8 @@ a {
 code,
 kbd {
   font-family: "Source Code Pro", monospace;
-  background: var(--shade-dark);
-  color: var(--accent-light);
+  background: transparent;
+  color: var(--btn-warning);
 }
 
 /* Navbar */
@@ -1267,6 +1270,10 @@ kbd {
 
 .post:first-child {
   margin-top: 0;
+}
+
+.post-info {
+  font-size: 0.8em;
 }
 
 .post-info a {
