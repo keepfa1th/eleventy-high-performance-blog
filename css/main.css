@@ -18,6 +18,30 @@
   --border: var(--shade);
 }
 
+.light-mode {
+  --text: var(--shade-dark);
+  --background: var(--shade-light);
+  --anchor: var(--primary-dark);
+  --desc: var(--accent-dark);
+  --highlight: var(--accent-light);
+  --badge: var(--btn-primary);
+  --tag: var(--btn-text);
+  --code: #a84caa;
+  --full-screen: var(--btn-text);
+}
+
+.dark-mode {
+  --text: var(--shade-light);
+  --background: #3c4858;
+  --anchor: var(--accent-light);
+  --desc: var(--shade);
+  --highlight: var(--accent-light);
+  --badge: var(--shade);
+  --tag: var(--shade-dark);
+  --code: #45c8ce;
+  --full-screen: var(--shade-dark);
+}
+
 .test-dead-code-elimination-sentinel {
   color: red;
 }
@@ -52,58 +76,6 @@ header nav {
 @media (min-width: 37.5em) {
   :root {
     --main-width: calc(37.5em - 3em);
-  }
-}
-
-.light-mode {
-  --text: var(--shade-dark);
-  --background: var(--shade-light);
-  --anchor: var(--primary-dark);
-  --desc: var(--accent-dark);
-  --highlight: var(--accent-light);
-  --badge: var(--btn-primary);
-  --tag: var(--btn-text);
-  --code: #a84caa;
-  --full-screen: #f8fafa;
-}
-
-.dark-mode {
-  --text: var(--shade-light);
-  --background: #282a3c;
-  --anchor: var(--accent-light);
-  --desc: var(--shade);
-  --highlight: var(--accent-light);
-  --badge: #f3e6c0;
-  --tag: var(--shade-dark);
-  --code: #45c8ce;
-  --full-screen: var(--shade-dark);
-}
-
-@media (prefers-color-scheme: light) {
-  :root {
-    --text: var(--shade-dark);
-    --background: var(--shade-light);
-    --anchor: var(--primary-dark);
-    --desc: var(--accent-dark);
-    --highlight: var(--accent-light);
-    --badge: var(--btn-primary);
-    --tag: var(--btn-text);
-    --code: #a84caa;
-    --full-screen: var(--btn-text);
-  }
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --text: var(--shade-light);
-    --background: #282a3c;
-    --anchor: var(--accent-light);
-    --desc: var(--shade);
-    --highlight: var(--accent-light);
-    --badge: #f3e6c0;
-    --tag: var(--shade-dark);
-    --code: #45c8ce;
-    --full-screen: var(--shade-dark);
   }
 }
 
@@ -290,6 +262,12 @@ html {
   }
 }
 */
+@font-face {
+  font-family: "Inter UI";
+  font-weight: 100 900;
+  font-style: oblique 0deg 10deg;
+  src: url("/fonts/Inter-3.19.var.woff2") format("woff2");
+}
 
 /*
 
@@ -741,8 +719,8 @@ dt {
   }
 }
 html {
-  font-family: Noto Sans TC, sans-serif;
-  --font-family: Noto Sans TC, sans-serif;
+  font-family: Inter UI, sans-serif;
+  --font-family: Inter UI, sans-serif;
 }
 form {
   padding: 1.5em 1.5em 0;
