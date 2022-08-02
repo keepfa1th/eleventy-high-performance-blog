@@ -13,6 +13,153 @@
 	</author>
 	
 	<entry>
+		<title>離開 Hexo，使用 Eleventy 架設部落格</title>
+		<link href="https://frannn.dev/posts/82901432/"/>
+		<updated>2022-08-02T00:00:00-00:00</updated>
+		<id>https://frannn.dev/posts/82901432/</id>
+		<content type="html">
+		  &lt;h2 id=&quot;%E5%89%8D%E8%A8%80&quot;&gt;前言 &lt;a class=&quot;direct-link&quot; href=&quot;#%E5%89%8D%E8%A8%80&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;從今年年初便知道 &lt;a href=&quot;https://www.11ty.dev/&quot;&gt;Eleventy&lt;/a&gt; 這樣的一套 Static Site Generator，經過一番評估之後，最近終於趁著空閒的空檔，選擇 &lt;a href=&quot;https://www.11ty.dev/&quot;&gt;Eleventy&lt;/a&gt; 作為新的技術框架，並以&lt;br&gt;
+&lt;a href=&quot;https://github.com/google/eleventy-high-performance-blog&quot;&gt;eleventy-high-performance-blog&lt;/a&gt; 作為基底，架置了新的部落格，和過去所使用的 &lt;a href=&quot;https://hexo.io/zh-tw/&quot;&gt;Hexo&lt;/a&gt; 框架說掰掰。&lt;/p&gt;
+&lt;p&gt;在這裡紀錄一些個人的使用心得，也讓其他想嘗試 &lt;a href=&quot;https://www.11ty.dev/&quot;&gt;Eleventy&lt;/a&gt; 這套工具的人可作為參考。&lt;/p&gt;
+&lt;h2 id=&quot;%E7%82%BA%E4%BB%80%E9%BA%BC%E4%B8%8D%E7%94%A8-hexo%EF%BC%9F&quot;&gt;為什麼不用 Hexo？ &lt;a class=&quot;direct-link&quot; href=&quot;#%E7%82%BA%E4%BB%80%E9%BA%BC%E4%B8%8D%E7%94%A8-hexo%EF%BC%9F&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;過去我使用 &lt;a href=&quot;https://hexo.io/zh-tw/&quot;&gt;Hexo&lt;/a&gt; 架置部落格也有好幾年，事實上作為新手架置部落格的選擇來說，還是一個很不錯的選擇。&lt;/p&gt;
+&lt;p&gt;我認為 &lt;a href=&quot;https://hexo.io/zh-tw/&quot;&gt;Hexo&lt;/a&gt; 有以下的優點：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;基於 Node.js 撰寫，在本地編譯建置靜態頁面，有一定 SEO 優勢&lt;/li&gt;
+&lt;li&gt;開源社群十分活躍，你幾乎不需要自己重造輪子&lt;/li&gt;
+&lt;li&gt;基於以上，有豐富的漂亮主題與外掛&lt;/li&gt;
+&lt;li&gt;中文文件、網路資源多，學習成本低&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;但是，基於以上的優點……菜鳥時期的我也犯下了一些錯誤：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;套用了漂亮的主題，卻未著重效能&lt;/li&gt;
+&lt;li&gt;使用第三方外掛，實際上未必需要那麼強大的自定義功能，增加程式複雜度&lt;/li&gt;
+&lt;li&gt;使用第三方套件並未積極更新最新版本，間接導致損失了可能的效能改進或延伸出資安問題&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src=&quot;https://i.imgur.com/PgaB6fJ.png&quot; alt=&quot;舊桌機版網頁 Lighthouse 表現&quot;&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;過去我所使用的是 &lt;a href=&quot;https://github.com/ppoffice/hexo-theme-icarus&quot;&gt;hexo-theme-icarus&lt;/a&gt; 這個主題，利用 Lighthouse 量測，在桌機上的表現還不算太差，但還有改善空間&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;img src=&quot;https://i.imgur.com/BD0Bwpm.png&quot; alt=&quot;舊手機版網頁 Lighthouse 表現&quot;&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;然而透過 Lighthouse 量測，在手機上的表現是顯而易見的差強人意&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;其實後來想想，我真的需要這個主題之中的每一個功能嗎？答案當然是否定的。&lt;/p&gt;
+&lt;p&gt;對於自己的部落格，我的要求也和以前的我有所不同：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;效能優化擺在第一順位考量，不需要太浮誇的功能，越簡潔越好&lt;/li&gt;
+&lt;li&gt;比起過於笨重的第三方套件，還不如不要，我可以自己動手&lt;/li&gt;
+&lt;li&gt;基於前者，要容易按照我自己的需求客製化，框架架構不要太複雜&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;釐清自己的需求與目的後，開始研究不同技術與工具評估，透過 Huli 的這篇文章（&lt;a href=&quot;https://blog.huli.tw/2021/08/22/eleventy-over-hexo/&quot;&gt;除了 hexo，也可以考慮用 eleventy 來寫技術部落格&lt;/a&gt;）我得知了 &lt;a href=&quot;https://github.com/google/eleventy-high-performance-blog&quot;&gt;eleventy-high-performance-blog&lt;/a&gt; 這個 template repo。&lt;/p&gt;
+&lt;h2 id=&quot;%E9%97%9C%E6%96%BC-eleventy-high-performance-blog&quot;&gt;關於 eleventy-high-performance-blog &lt;a class=&quot;direct-link&quot; href=&quot;#%E9%97%9C%E6%96%BC-eleventy-high-performance-blog&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&quot;https://github.com/google/eleventy-high-performance-blog&quot;&gt;eleventy-high-performance-blog&lt;/a&gt; 是一套由 google 工程師所建置的開源部落格模板，以打造高速效能為賣點，這個模板已經建構好一套相對完整的架構，包含：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;圖片最佳化&lt;/strong&gt;（響應式圖片、lazy load、轉換 webp / AVIF 等優化格式）&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;CSS / JS minify&lt;/strong&gt;（使用 &lt;a href=&quot;https://rollupjs.org/guide/en/&quot;&gt;rollup.js&lt;/a&gt;、&lt;a href=&quot;https://purgecss.com/&quot;&gt;PurgeCSS&lt;/a&gt; 等工具）&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;基本 SEO 建設&lt;/strong&gt;（HTML 語意化、meta tag、Sitemap 等等）&lt;/li&gt;
+&lt;li&gt;考量 &lt;strong&gt;&lt;a href=&quot;https://developer.mozilla.org/en-US/docs/Web/Accessibility&quot;&gt;Web Accessibility（a11y）&lt;/a&gt;&lt;/strong&gt; 而實作&lt;/li&gt;
+&lt;li&gt;導入了 &lt;a href=&quot;https://mochajs.org/&quot;&gt;mocha&lt;/a&gt;，有一套&lt;strong&gt;基本的測試架構&lt;/strong&gt;，CI 階段可整合測試&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;專案架構也清晰精簡，易於改動維護，可以說是麻雀雖小，五臟俱全！&lt;/p&gt;
+&lt;p&gt;非要雞蛋裡挑骨頭的話，這個模板未經修改、直接建置的 &lt;a href=&quot;https://eleventy-high-performance-blog-sample.industrialempathy.com/&quot;&gt;Demo site&lt;/a&gt; 看起來確實是比 Hexo 社群那些酷酷的主題要來得精簡許多……&lt;/p&gt;
+&lt;p&gt;但是，正如這個專案的 README 所說：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Knock yourself out. This is a template repository.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;img src=&quot;https://i.imgur.com/2v7qWrx.png&quot; alt=&quot;接受挑戰&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Ok，我接受這個挑戰！&lt;/strong&gt;&lt;/p&gt;
+&lt;h2 id=&quot;%E6%9E%B6%E8%A8%AD%E5%80%8B%E4%BA%BA%E5%8C%96%E9%83%A8%E8%90%BD%E6%A0%BC%E7%9A%84%E5%BF%83%E8%B7%AF%E5%88%86%E4%BA%AB&quot;&gt;架設個人化部落格的心路分享 &lt;a class=&quot;direct-link&quot; href=&quot;#%E6%9E%B6%E8%A8%AD%E5%80%8B%E4%BA%BA%E5%8C%96%E9%83%A8%E8%90%BD%E6%A0%BC%E7%9A%84%E5%BF%83%E8%B7%AF%E5%88%86%E4%BA%AB&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;開始改造的第一步，首要之務當然是：&lt;strong&gt;確立風格，列出需求&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;以我的例子來說，參考了一些前輩和同事的技術部落格後，確立自己心有所屬的主題風格後，再將我心中的想像、這其中必備的功能一一列出來：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;留言功能是必備&lt;/li&gt;
+&lt;li&gt;文章要有漂亮的封面圖片&lt;/li&gt;
+&lt;li&gt;想要深色主題和淺色主題的切換功能&lt;/li&gt;
+&lt;li&gt;要有頁面分頁功能（分頁邏輯要和舊站一致）&lt;/li&gt;
+&lt;li&gt;文章 link url 的轉換規則需要調整，不直接使用 title 字串（邏輯要和舊站一致，方便我作 301 轉址）&lt;/li&gt;
+&lt;li&gt;串接 Google Analytics&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;……諸多調整和樣式有關，族繁不及備載。&lt;/p&gt;
+&lt;p&gt;總而言之，事前確認越是具體，實作階段也就更明確，避免反覆修改。&lt;/p&gt;
+&lt;h3 id=&quot;color-palette&quot;&gt;Color Palette &lt;a class=&quot;direct-link&quot; href=&quot;#color-palette&quot;&gt;#&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;Color Palette 的部分，我則是借助了 &lt;a href=&quot;http://colormind.io/bootstrap/&quot;&gt;Colormind&lt;/a&gt; 這個網站幫我配好合理的網頁配色，實務上再按需求作一些 darken &amp;amp; lighten 色彩轉換。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://i.imgur.com/ZB4faSz.png&quot; alt=&quot;Colormind&quot;&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;只需要選好主色，點擊 Generate 便會自動產生合理的網頁配色。當然，你也可以設定副色等等，將其一併納入考量！&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h3 id=&quot;%E7%95%99%E8%A8%80%E5%8A%9F%E8%83%BD---giscus&quot;&gt;留言功能 - &lt;a href=&quot;https://giscus.app/zh-TW&quot;&gt;Giscus&lt;/a&gt; &lt;a class=&quot;direct-link&quot; href=&quot;#%E7%95%99%E8%A8%80%E5%8A%9F%E8%83%BD---giscus&quot;&gt;#&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;至於留言功能的部分，本來是在 &lt;a href=&quot;https://utteranc.es/&quot;&gt;utterances&lt;/a&gt; 和 &lt;a href=&quot;https://jamcomments.com/&quot;&gt;JamComments&lt;/a&gt; 之間反覆猶豫，兩者對我來說各有優缺。&lt;/p&gt;
+&lt;p&gt;我一直以來都不是很喜歡 &lt;a href=&quot;https://utteranc.es/&quot;&gt;utterances&lt;/a&gt; 這種相依於 GitHub issues 相關 API 的方式，其實使用上並不會造成什麼問題，但對我來說 ...Is this an issue for me?&lt;/p&gt;
+&lt;p&gt;心裡總是有種彆扭的感覺在那裡，否則單以功能面來說，&lt;a href=&quot;https://utteranc.es/&quot;&gt;utterances&lt;/a&gt; 絕對是可以滿足我的需求。&lt;/p&gt;
+&lt;p&gt;反過來說，&lt;a href=&quot;https://jamcomments.com/&quot;&gt;JamComments&lt;/a&gt; 這個第三方服務雖然看起來和 Eleventy 有不錯的支援性，甚至文件上也提供了&lt;a href=&quot;https://jamcomments.com/docs/integrations/eleventy/&quot;&gt;官方外掛&lt;/a&gt;，但是對我而言，網站所相依的第三方服務，當然還是能少一個是一個。&lt;/p&gt;
+&lt;p&gt;直到我在 SNS 上偶然看見有人推薦 &lt;a href=&quot;https://giscus.app/zh-TW&quot;&gt;Giscus&lt;/a&gt; 這個工具，完美解除了我上述的疑慮！&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://giscus.app/zh-TW&quot;&gt;Giscus&lt;/a&gt; 其實是受到 &lt;a href=&quot;https://utteranc.es/&quot;&gt;utterances&lt;/a&gt; 啟發，但不同的是，背後所使用的是 GitHub Discussions 相關 API。&lt;/p&gt;
+&lt;p&gt;當然這套工具也支援多樣的主題樣式設定，支援多語言，還可以讓我透過 &lt;code&gt;window.postMessage&lt;/code&gt; 等方式對 giscus iframe 做更進一步的動態互動。&lt;/p&gt;
+&lt;p&gt;文件很清楚，串接過程中也沒遇到什麼問題，是一套我會想強力推薦給大家的留言系統工具！&lt;/p&gt;
+&lt;h3 id=&quot;ci%2Fcd&quot;&gt;CI/CD &lt;a class=&quot;direct-link&quot; href=&quot;#ci%2Fcd&quot;&gt;#&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;在本地環境弄得差不多了，下一步開始著手調整 CI/CD workflow。&lt;/p&gt;
+&lt;p&gt;Deploy 部分我就直接使用 GitHub Actions 一口氣處理掉了，覺得自己不太需要用到 &lt;a href=&quot;https://www.netlify.com/&quot;&gt;Netlify&lt;/a&gt; 服務，需要作轉址或是 SSL 憑證則是透過熟悉的 &lt;a href=&quot;https://www.cloudflare.com/zh-tw/&quot;&gt;Cloudflare&lt;/a&gt; 幫忙處理。&lt;/p&gt;
+&lt;h4 id=&quot;ci%2Fcd-flow-%E8%AA%AA%E6%98%8E&quot;&gt;CI/CD flow 說明 &lt;a class=&quot;direct-link&quot; href=&quot;#ci%2Fcd-flow-%E8%AA%AA%E6%98%8E&quot;&gt;#&lt;/a&gt;&lt;/h4&gt;
+&lt;p&gt;基本上常駐的就是三支 branch：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;&lt;code&gt;develop&lt;/code&gt;&lt;/strong&gt;：主要開發與測試使用，有異動便會觸發 &lt;code&gt;build &amp;amp; test&lt;/code&gt; CI 流程，沒問題再人工手動進 code 到 &lt;code&gt;main&lt;/code&gt; branch&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;&lt;code&gt;main&lt;/code&gt;&lt;/strong&gt;：有異動便會觸發 &lt;code&gt;build &amp;amp; deploy&lt;/code&gt; CD 流程，將建置產生的異動自動推上 &lt;code&gt;main&lt;/code&gt; branch&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;&lt;code&gt;gh-pages&lt;/code&gt;&lt;/strong&gt;：不直接對這個 branch 操作，有異動就會直接觸發 Github 預設的 &lt;code&gt;pages build and deployment&lt;/code&gt; workflow，我什麼都不用做 😆&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&quot;build-%26-deploy-workflow-%E8%A8%AD%E5%AE%9A%E6%AA%94%E7%AF%84%E4%BE%8B&quot;&gt;&lt;code&gt;build &amp;amp; deploy&lt;/code&gt; workflow 設定檔範例 &lt;a class=&quot;direct-link&quot; href=&quot;#build-%26-deploy-workflow-%E8%A8%AD%E5%AE%9A%E6%AA%94%E7%AF%84%E4%BE%8B&quot;&gt;#&lt;/a&gt;&lt;/h4&gt;
+&lt;pre class=&quot;language-yml&quot;&gt;&lt;code class=&quot;language-yml&quot;&gt;&lt;span class=&quot;token key atrule&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; build &amp;amp; deploy&lt;br&gt;&lt;span class=&quot;token key atrule&quot;&gt;on&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;&lt;br&gt;  &lt;span class=&quot;token key atrule&quot;&gt;push&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;&lt;br&gt;    &lt;span class=&quot;token key atrule&quot;&gt;branches&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;main&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;br&gt;  &lt;span class=&quot;token key atrule&quot;&gt;pull_request&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;&lt;br&gt;    &lt;span class=&quot;token key atrule&quot;&gt;branches&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;main&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;token key atrule&quot;&gt;jobs&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;&lt;br&gt;  &lt;span class=&quot;token key atrule&quot;&gt;build&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;&lt;br&gt;    &lt;span class=&quot;token key atrule&quot;&gt;runs-on&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; ubuntu&lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt;latest&lt;br&gt;    &lt;span class=&quot;token key atrule&quot;&gt;strategy&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;&lt;br&gt;      &lt;span class=&quot;token key atrule&quot;&gt;matrix&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;&lt;br&gt;        &lt;span class=&quot;token key atrule&quot;&gt;node-version&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;14.x&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;br&gt;    &lt;span class=&quot;token key atrule&quot;&gt;steps&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;&lt;br&gt;      &lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;token key atrule&quot;&gt;uses&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; actions/checkout@v2&lt;br&gt;      &lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;token key atrule&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; Use Node.js $&lt;br&gt;        &lt;span class=&quot;token key atrule&quot;&gt;uses&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; actions/setup&lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt;node@v1&lt;br&gt;        &lt;span class=&quot;token key atrule&quot;&gt;with&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;&lt;br&gt;          &lt;span class=&quot;token key atrule&quot;&gt;node-version&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; $&lt;br&gt;      &lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;token key atrule&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; Install dependencies and build&lt;br&gt;        &lt;span class=&quot;token key atrule&quot;&gt;run&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; npm install &lt;span class=&quot;token important&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; npm run build&lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt;ci&lt;br&gt;      &lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;token key atrule&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; Deploy&lt;br&gt;        &lt;span class=&quot;token key atrule&quot;&gt;uses&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; JamesIves/github&lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt;pages&lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt;deploy&lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt;action@v4&lt;br&gt;        &lt;span class=&quot;token key atrule&quot;&gt;with&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;&lt;br&gt;          &lt;span class=&quot;token key atrule&quot;&gt;ssh-key&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; $&lt;br&gt;          &lt;span class=&quot;token key atrule&quot;&gt;branch&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; gh&lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt;pages&lt;br&gt;          &lt;span class=&quot;token key atrule&quot;&gt;folder&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; _site&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Deploy job 使用了 &lt;a href=&quot;https://github.com/JamesIves/github-pages-deploy-action&quot;&gt;JamesIves/github-pages-deploy-action&lt;/a&gt; 代勞，記得按照&lt;a href=&quot;https://github.com/JamesIves/github-pages-deploy-action#using-an-ssh-deploy-key-&quot;&gt;文件說明&lt;/a&gt;去 Repo Settings 設定 &lt;strong&gt;Deploy key&lt;/strong&gt; 和 &lt;strong&gt;Repository secrets&lt;/strong&gt;，&lt;/p&gt;
+&lt;h3 id=&quot;%E8%B3%BC%E8%B2%B7%E8%87%AA%E5%AE%9A%E7%BE%A9%E5%9F%9F%E5%90%8D%EF%BC%8C%E8%A8%AD%E5%AE%9A-cloudflare-%E4%BB%A3%E7%AE%A1-dns&quot;&gt;購買自定義域名，設定 Cloudflare 代管 DNS &lt;a class=&quot;direct-link&quot; href=&quot;#%E8%B3%BC%E8%B2%B7%E8%87%AA%E5%AE%9A%E7%BE%A9%E5%9F%9F%E5%90%8D%EF%BC%8C%E8%A8%AD%E5%AE%9A-cloudflare-%E4%BB%A3%E7%AE%A1-dns&quot;&gt;#&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;不詳述如何設定自定義域名了，總之買完之後要去域名服務商調整設定，使用 &lt;a href=&quot;https://www.cloudflare.com/zh-tw/&quot;&gt;Cloudflare&lt;/a&gt; 代管 DNS。&lt;/p&gt;
+&lt;p&gt;可以參考我過去的這篇文章：&lt;a href=&quot;https://frannn.dev/posts/d22e4c38/#%E7%94%A8-cloudflare-%E5%8A%A0%E4%B8%8A-ssl-%E6%86%91%E8%AD%89&quot;&gt;什麼是 SSL？透過 Cloudflare 來啟用 HTTPS&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;光是 &lt;a href=&quot;https://www.cloudflare.com/zh-tw/&quot;&gt;Cloudflare&lt;/a&gt; 的免費方案就提供了許多網站加速、安全防禦服務，我重點設定的項目有這些：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;SSL/TLS 憑證&lt;/strong&gt;（一律使用 HTTPS，同時自動改寫）&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Caching&lt;/strong&gt;（調整瀏覽器快取 TTL 時間）&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;使用 &lt;a href=&quot;https://support.cloudflare.com/hc/en-us/articles/200168196-Using-Cloudflare-Auto-Minify&quot;&gt;Auto Minify&lt;/a&gt;&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;啟用 Brotli 壓縮&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;啟用 &lt;a href=&quot;https://support.cloudflare.com/hc/en-us/articles/200168056-Understanding-Rocket-Loader&quot;&gt;Rocket Loader&lt;/a&gt;&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&quot;%E6%88%90%E6%9E%9C&quot;&gt;成果 &lt;a class=&quot;direct-link&quot; href=&quot;#%E6%88%90%E6%9E%9C&quot;&gt;#&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;最後，你現在眼前所看到的這個 blog 便是一切的成果！&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://i.imgur.com/KyKloTT.png&quot; alt=&quot;新桌機版網頁 Lighthouse 表現&quot;&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;利用 Lighthouse 量測，同一篇文章在桌機上的表現&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;img src=&quot;https://i.imgur.com/N1hTyGZ.png&quot; alt=&quot;新手機版網頁 Lighthouse 表現&quot;&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;利用 Lighthouse 量測，同一篇文章在手機上的表現&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;可以看到，雖然加了一些雜七雜八客製化功能和樣式（甚至是串上了 Google Analytics），但 Lighthouse 還是有很亮眼的表現。&lt;/p&gt;
+&lt;p&gt;再進一步比較一下手機版網頁上的各個指標所耗費時間：&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://i.imgur.com/szsJ4v3.png&quot; alt=&quot;新手機版網頁的 Performance&quot;&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Before：&lt;strong&gt;FCP&lt;/strong&gt; 時間高達 3.1 秒，&lt;strong&gt;LCP&lt;/strong&gt; 時間更需要 9.4 秒，完全就是不合格！&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;img src=&quot;https://i.imgur.com/bcn8AYg.png&quot; alt=&quot;舊手機版網頁的 Performance&quot;&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;After：&lt;strong&gt;FCP&lt;/strong&gt; 時間降至 1.0 秒，&lt;strong&gt;LCP&lt;/strong&gt; 時間只需要 1.3 秒，指標一切綠燈！&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;對於這樣的復仇成果，我個人可以說是相當滿意！&lt;/p&gt;
+&lt;h2 id=&quot;%E7%B8%BD%E7%B5%90&quot;&gt;總結 &lt;a class=&quot;direct-link&quot; href=&quot;#%E7%B8%BD%E7%B5%90&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;感謝前人指路，讓我發現了一套這麼棒的模板工具！&lt;/p&gt;
+&lt;p&gt;過去我是懶人起手，直接交給了 Hexo 社群提供的主題來包辦一切，但是無形之中也因個人掌握不足，間接導致一些額外的效能問題。&lt;/p&gt;
+&lt;p&gt;這次基於簡潔的 &lt;a href=&quot;https://github.com/google/eleventy-high-performance-blog&quot;&gt;eleventy-high-performance-blog&lt;/a&gt; 模板工具來開發，客製化個人功能的過程中，每告一段落、完成了一個較大規模的異動調整，我就會停下來檢查一下剛才完成的部分有沒有什麼地方可以再優化。（我個人是花了點心力在確認資源載入的 &lt;code&gt;preload&lt;/code&gt; 設定等等）&lt;/p&gt;
+&lt;p&gt;與日常的專案開發不同，受限於頻繁的功能迭代有時候很難落實這件事情──然而&lt;strong&gt;頻繁量測，不斷地調整與測試，是提升網頁效能的必經之路&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;不排斥自己動手來的話，我是很推薦 &lt;a href=&quot;https://github.com/google/eleventy-high-performance-blog&quot;&gt;eleventy-high-performance-blog&lt;/a&gt; 這個模板工具的，還收穫了滿滿的成就感！&lt;/p&gt;
+&lt;p&gt;這個部落格的原始碼放在 &lt;a href=&quot;https://github.com/frantw/eleventy-high-performance-blog&quot;&gt;GitHub&lt;/a&gt; 上，如有疑問歡迎在這篇文章底下留言。&lt;/p&gt;
+&lt;h3 id=&quot;%E5%85%B6%E4%BB%96%E5%8F%83%E8%80%83&quot;&gt;其他參考 &lt;a class=&quot;direct-link&quot; href=&quot;#%E5%85%B6%E4%BB%96%E5%8F%83%E8%80%83&quot;&gt;#&lt;/a&gt;&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https://blog.huli.tw/2021/08/22/eleventy-over-hexo/&quot;&gt;除了 hexo，也可以考慮用 eleventy 來寫技術部落格&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://jason-memo.dev/posts/why-i-leave-medium-and-build-blog-with-eleventy/&quot;&gt;為什麼我離開 Medium 用 eleventy 做一個 blog&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+		</content>
+	</entry>
+	
+	<entry>
 		<title>macOS 打造前端開發環境</title>
 		<link href="https://frannn.dev/posts/56efe959/"/>
 		<updated>2021-02-27T00:00:00-00:00</updated>
