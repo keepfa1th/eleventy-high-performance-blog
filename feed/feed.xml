@@ -104,7 +104,7 @@
 &lt;p&gt;基本上常駐的就是三支 branch：&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;strong&gt;&lt;code&gt;develop&lt;/code&gt;&lt;/strong&gt;：主要開發與測試使用，有異動便會觸發 &lt;code&gt;build &amp;amp; test&lt;/code&gt; CI 流程，沒問題再人工手動進 code 到 &lt;code&gt;main&lt;/code&gt; branch&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;&lt;code&gt;main&lt;/code&gt;&lt;/strong&gt;：有異動便會觸發 &lt;code&gt;build &amp;amp; deploy&lt;/code&gt; CD 流程，將建置產生的異動自動推上 &lt;code&gt;main&lt;/code&gt; branch&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;&lt;code&gt;main&lt;/code&gt;&lt;/strong&gt;：有異動便會觸發 &lt;code&gt;build &amp;amp; deploy&lt;/code&gt; CD 流程，將建置產生的異動自動推上 &lt;code&gt;gh-pages&lt;/code&gt; branch&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;&lt;code&gt;gh-pages&lt;/code&gt;&lt;/strong&gt;：不直接對這個 branch 操作，有異動就會直接觸發 Github 預設的 &lt;code&gt;pages build and deployment&lt;/code&gt; workflow，我什麼都不用做 😆&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h4 id=&quot;build-%26-deploy-workflow-%E8%A8%AD%E5%AE%9A%E6%AA%94%E7%AF%84%E4%BE%8B&quot;&gt;&lt;code&gt;build &amp;amp; deploy&lt;/code&gt; workflow 設定檔範例 &lt;a class=&quot;direct-link&quot; href=&quot;#build-%26-deploy-workflow-%E8%A8%AD%E5%AE%9A%E6%AA%94%E7%AF%84%E4%BE%8B&quot;&gt;#&lt;/a&gt;&lt;/h4&gt;
